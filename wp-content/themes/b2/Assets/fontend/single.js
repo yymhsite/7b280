@@ -161,7 +161,14 @@ var postType5 = new Vue({
                     video: {
                         url: this.url,
                         pic: this.videos[0].poster,
-                        type:'auto',
+                        type: 'customHls',
+                        customType: {
+                            customHls: function (video, player) {
+                                const hls = new Hls();
+                                hls.loadSource(video.src);
+                                hls.attachMedia(video);
+                            },
+                        }
                     },
                     contextmenu:[],
                     airplay:true,
@@ -1150,6 +1157,14 @@ function b2VideoReset(){
                     video: {
                         url: data.url,
                         pic: data.poster,
+                        type: 'customHls',
+                        customType: {
+                            customHls: function (video, player) {
+                                const hls = new Hls();
+                                hls.loadSource(video.src);
+                                hls.attachMedia(video);
+                            },
+                        }
                     },
                     logo:data.logo ? data.logo : b2_global.site_info.site_uri+'/Assets/fontend/images/xg-logo-default.png',
                     autoplay:false
